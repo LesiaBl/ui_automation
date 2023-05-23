@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 
 import java.util.concurrent.TimeUnit;
 
-public class _01_AppleTitleAndURL {
+public class _01_AppleMainPage {
     static WebDriver driver;
 
     @BeforeMethod
