@@ -1,6 +1,7 @@
 package scrips;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -8,34 +9,41 @@ import org.testng.annotations.Test;
 
 public class _06_Wiki extends Base {
 
-    @BeforeMethod
-    public void setPage(){
-        driver.get("https://www.wikipedia.org/");
-    }
+    /*
+    Go to "https://www.wikipedia.org/"
+    Search for "Tesla"
+    Validate the main header of the page is displayed and is "Tesla"
 
+    validateWikiSearch
+     */
 
-    @Test
+        @BeforeMethod
+        public void setPage(){
+            driver.get("https://www.wikipedia.org/");
+        }
 
-    public void validateWikiSearch(){
+        @Test
+        public void validateWikiSearch1(){
+            WebElement searchBox = driver.findElement(By.id("searchInput"));
+            WebElement searchButton = driver.findElement(By.cssSelector(".pure-button-primary-progressive"));
 
-        WebElement search = driver.findElement(By.id("searchInput"));
+            searchBox.sendKeys("Tesla");
+            searchButton.submit();
 
-        Assert.assertTrue(search.isDisplayed());
-        Assert.assertTrue(search.isEnabled());
-        search.sendKeys("Tesla");
+            WebElement mainHeader = driver.findElement(By.cssSelector("#firstHeading>span"));
 
-        WebElement searchButton = driver.findElement(By.cssSelector(".pure-button"));
+            Assert.assertEquals(mainHeader.getText(), "Tesla");
+        }
 
-        Assert.assertTrue(searchButton.isDisplayed());
-        Assert.assertTrue(searchButton.isEnabled());
+        @Test
+        public void validateWikiSearch2(){
+            WebElement searchBox = driver.findElement(By.id("searchInput"));
 
-        searchButton.click();
+            searchBox.sendKeys("Tesla" + Keys.ENTER);
 
-        WebElement header = driver.findElement(By.cssSelector(".mw-page-title-main"));
-        Assert.assertTrue(header.isDisplayed());
-        Assert.assertEquals(header.getText(), "Tesla");
+            WebElement mainHeader = driver.findElement(By.cssSelector("#firstHeading>span"));
 
+            Assert.assertEquals(mainHeader.getText(), "Tesla");
+        }
 
-
-    }
 }
