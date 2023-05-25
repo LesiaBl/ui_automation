@@ -23,8 +23,8 @@ public class RadioBoxes extends Base {
      * Select "Java" and validate it is selected but the other 2 are deselected
      * Select "JavaScript" to validate it is selected but the other 2 are deselected
      */
-    @Test
-    public void validateRadioButtons() {
+    @Test(priority = 1)
+    public void validateRadioButtons(){
 
         String[] expectedText = {"Java", "JavaScript", "C#"};
         List<WebElement> radioButtonsExist = driver.findElements(By.cssSelector("#radio-button-group_1 label"));
@@ -37,7 +37,6 @@ public class RadioBoxes extends Base {
             Assert.assertTrue(radioButtonsExist.get(i).isEnabled());
             Assert.assertFalse(radioButtonsSelected.get(i).isSelected());
         }
-
         //click Java  and check if its selected using INPUT
         radioButtonsSelected.get(0).click();
         Assert.assertTrue(radioButtonsSelected.get(0).isSelected());
@@ -51,14 +50,10 @@ public class RadioBoxes extends Base {
         radioButtonsSelected.get(1).click();
         Assert.assertTrue(radioButtonsSelected.get(1).isSelected());
 
-
         for (int i = 0; i < expectedText.length; i++) {
-            if (i == 1) continue;
-            ;
             Assert.assertFalse(radioButtonsSelected.get(i).isSelected());
-
+            i+=1;
         }
-
     }
 
     /**
@@ -69,8 +64,8 @@ public class RadioBoxes extends Base {
      * Select "Cypress" and validate it is selected but the other 2 are deselected
      * Select "Playwright" to validate it is selected but the other 2 are deselected
      */
-    @Test
-    public void validatePracticeMore() {
+    @Test(priority = 2)
+    public void validatePracticeMore(){
 
         String[] expectedText = {"Selenium", "Cypress", "Playwright"};
         List<WebElement> radioButtonsExist = driver.findElements(By.cssSelector("#radio-button-group_2 label"));
@@ -84,26 +79,23 @@ public class RadioBoxes extends Base {
             Assert.assertFalse(radioButtonsSelected.get(i).isSelected());
         }
 
-        //click Java  and check if its selected using INPUT
-        radioButtonsSelected.get(1).click();
+        //click Java --> label and check if its selected using INPUT
+        radioButtonsExist.get(1).click();
         Assert.assertTrue(radioButtonsSelected.get(1).isSelected());
-
         //check if other buttons is not selected
         for (int i = 0; i < expectedText.length; i++) {
             if (i == 1) continue;
             Assert.assertFalse(radioButtonsSelected.get(i).isSelected());
         }
-
         //click
         radioButtonsSelected.get(2).click();
         Assert.assertTrue(radioButtonsSelected.get(2).isSelected());
 
-
         for (int i = 0; i < expectedText.length; i++) {
             if (i == 2) continue;
             Assert.assertFalse(radioButtonsSelected.get(i).isSelected());
-
         }
-
     }
+
+
 }
