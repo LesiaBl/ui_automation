@@ -1,11 +1,13 @@
 package projects;
 
+import com.github.javafaker.Faker;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import scrips.Base;
+import utils.Waiter;
 
 import java.util.List;
 
@@ -111,11 +113,12 @@ public class Project1_ContactUsPage extends Base {
         //* Validate the label is “Gender”     displayed & getText   _required
         Assert.assertTrue(fullNameBox.isDisplayed());
         Assert.assertEquals(fullNameBox.getText(), "Gender *");
-        Assert.assertTrue(true, fullNameBox.getAttribute("required"));
-
         List<WebElement> genderSelection = driver.findElements(By.cssSelector("label[class*='radio']"));
+
         List<WebElement> radioButtons = driver.findElements(By.cssSelector("input[type='radio']"));
+
         String[] expectedText = {"Male", "Female", "Prefer not to disclose"};
+        Assert.assertEquals(radioButtons.get(0).getAttribute("required"), "true");
 
         for (int i = 0; i < expectedText.length; i++) {
             Assert.assertTrue(radioButtons.get(i).isDisplayed());
@@ -158,9 +161,11 @@ public class Project1_ContactUsPage extends Base {
         //input for display text  enable
 
         Assert.assertTrue(inputAddressBox.isDisplayed());
-        Assert.assertFalse(false, addressBox.getAttribute("required"));
+        Assert.assertNull( addressBox.getAttribute("required"));
         Assert.assertEquals(addressBox.getText(), "Address");
         Assert.assertEquals(inputAddressBox.getAttribute("placeholder"), "Enter your address");
+
+
 
 
     }
@@ -303,6 +308,8 @@ public class Project1_ContactUsPage extends Base {
      */
     @Test(priority = 10)
     public void validateTheFormSubmission() {
+        Faker faker = new Faker();
+
         WebElement fullNameBox = driver.findElement(By.cssSelector("div[class='field']:nth-child(1) input"));
         List<WebElement> radioButtons = driver.findElements(By.cssSelector("input[type='radio']"));
         WebElement inputAddressBox = driver.findElement(By.cssSelector("div[class='field']:nth-child(3) [class='input']"));
@@ -312,18 +319,18 @@ public class Project1_ContactUsPage extends Base {
         WebElement checkbox = driver.findElement(By.cssSelector("input[type='checkbox']"));
         WebElement submitButton = driver.findElement(By.cssSelector("button[class*='is-link']"));
 
-        fullNameBox.sendKeys("Lesia Biletska");
+        fullNameBox.sendKeys(faker.name().fullName());
         radioButtons.get(1).click();
-        inputAddressBox.sendKeys("234 Chicago");
+         inputAddressBox.sendKeys(faker.address().fullAddress());
         inputEmailBox.sendKeys("email@gmail.com");
-        phoneInputBox.sendKeys("333-333-3333");
-        textArea.sendKeys("Red, green, white, !@#@#");
+        phoneInputBox.sendKeys(faker.phoneNumber().cellPhone());
+        textArea.sendKeys(faker.gameOfThrones().dragon());
         checkbox.click();
         submitButton.submit();
 
         WebElement validateMessage = driver.findElement(By.cssSelector(".mt-5"));
         Assert.assertEquals(validateMessage.getText(), "Thanks for submitting!");
-
+        Waiter.pause(5);
     }
 
 

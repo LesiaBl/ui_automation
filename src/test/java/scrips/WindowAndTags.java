@@ -7,6 +7,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import utils.WindowHandler;
 
+import java.util.List;
+
 
 public class WindowAndTags extends Base {
     @BeforeMethod
@@ -34,8 +36,8 @@ public class WindowAndTags extends Base {
     @Test(priority = 2, description = "TC322 Validate the Microsoft navigation")
     public void validateMicrosoft() {
 
-        WebElement apple = driver.findElement(By.id("microsoft"));
-        apple.click();
+        WebElement microsoft = driver.findElement(By.id("microsoft"));
+        microsoft.click();
 
         WindowHandler.switchToSecondWindow();
         Assert.assertTrue(driver.getCurrentUrl().contains("microsoft"));
@@ -60,5 +62,17 @@ public class WindowAndTags extends Base {
         Assert.assertTrue(heading.isDisplayed());
         Assert.assertEquals(heading.getText(),"Multiple Windows");
 
+    }
+
+
+    @Test
+    public void validateLinks(){
+
+        List<WebElement> links = driver.findElements(By.cssSelector("ul a"));
+        String[] linksURL = {"https://www.apple.com/", "https://www.microsoft.com/", "https://www.tesla.com/"};
+
+        for (int i = 0; i < linksURL.length; i++) {
+            Assert.assertEquals(links.get(i).getAttribute("href"), linksURL[i]);
+        }
     }
 }
