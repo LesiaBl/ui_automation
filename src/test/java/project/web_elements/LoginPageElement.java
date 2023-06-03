@@ -53,7 +53,7 @@ public class LoginPageElement {
         return element;
     }
     public static WebElement close(WebDriver driver){
-        element = driver.findElement(By.id(".delete"));
+        element = driver.findElement(By.cssSelector(".delete"));
         return element;
     }
     public static WebElement email(WebDriver driver){
@@ -61,7 +61,7 @@ public class LoginPageElement {
         return element;
     }
     public static WebElement emailLabel(WebDriver driver){
-        element = driver.findElement(By.id("label[for='email']"));
+        element = driver.findElement(By.cssSelector("label[for='email']"));
         return element;
     }
     public static WebElement submit(WebDriver driver){
@@ -69,7 +69,7 @@ public class LoginPageElement {
         return element;
     }
     public static WebElement resetModal(WebDriver driver){
-        element = driver.findElement(By.id(".modal"));
+        element = driver.findElement(By.cssSelector(".modal"));
         return element;
     }
     public static WebElement confirmationMessage(WebDriver driver) {

@@ -193,7 +193,7 @@ public class Project2_LoginPage extends Base {
 
          LoginPageElement.login(driver).click();
 
-        Assert.assertEquals(LoginPageElement.error(driver).getText(),"Invalid Username entered!");
+        Assert.assertEquals(LoginPageElement.error(driver).getText(),"Invalid Password entered!");
 
     }
 
