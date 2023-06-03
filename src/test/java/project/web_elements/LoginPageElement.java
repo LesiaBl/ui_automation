@@ -13,4 +13,10 @@ public class LoginPageElement {
         return element;
     }
 
+    public static WebElement loginForm(WebDriver driver){
+       element = driver.findElement(By.cssSelector(".LoginForm_form__b4o6J"));
+
+       return element;
+    }
+
 }

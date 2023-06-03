@@ -105,8 +105,7 @@ public class Project2_LoginPage extends Base {
         WebElement logout = driver.findElement(By.id("logout"));
         logout.click();
 
-        WebElement loginForm = driver.findElement(By.cssSelector(".LoginForm_form__b4o6J"));
-        Assert.assertTrue(loginForm.isDisplayed());
+        Assert.assertTrue(LoginPageElement.loginForm(driver).isDisplayed());
     }
     //Test Case 04 - Validate the Forgot Password? Link and Reset Password modal
     //Navigate to https://techglobal-training.com/frontend/project-2
@@ -158,9 +157,9 @@ public class Project2_LoginPage extends Base {
 
         WebElement close = driver.findElement(By.cssSelector(".delete"));
         close.click();
-        boolean modal =resetModal.isDisplayed();
 
-        Assert.assertTrue(modal);
+        Assert.assertTrue(LoginPageElement.loginForm(driver).isDisplayed());
+
     }
     //Test Case 06 - Validate the Reset Password form submission
     //Navigate to https://techglobal-training.com/frontend/project-2
