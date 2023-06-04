@@ -1,10 +1,14 @@
 package project.projects;
 
+import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import project.web_elements.LoginPageElement;
 import scrips.Base;
+import utils.Driver;
+
+import java.util.NoSuchElementException;
 
 public class Project2_LoginPage extends Base {
     @BeforeMethod
@@ -28,24 +32,24 @@ public class Project2_LoginPage extends Base {
     //Validate that the link text is “Forgot Password?”
     @Test(priority = 1)
     public void validateTheLoginForm(){
-        Assert.assertTrue(LoginPageElement.usernameInputBox(driver).isDisplayed());
-        Assert.assertNull( LoginPageElement.usernameInputBox(driver).getAttribute("required"));
+        Assert.assertTrue(LoginPageElement.usernameInputBox().isDisplayed());
+        Assert.assertNull( LoginPageElement.usernameInputBox().getAttribute("required"));
 
-        Assert.assertEquals(LoginPageElement.userNameLabel(driver).getText(), "Please enter your username");
+        Assert.assertEquals(LoginPageElement.userNameLabel().getText(), "Please enter your username");
 
 
-        Assert.assertTrue(LoginPageElement.passwordInputBox(driver).isDisplayed());
-        Assert.assertNull(LoginPageElement.passwordInputBox(driver).getAttribute("required"));
+        Assert.assertTrue(LoginPageElement.passwordInputBox().isDisplayed());
+        Assert.assertNull(LoginPageElement.passwordInputBox().getAttribute("required"));
 
-        Assert.assertEquals(LoginPageElement.passwordLabel(driver).getText(), "Please enter your password");
+        Assert.assertEquals(LoginPageElement.passwordLabel().getText(), "Please enter your password");
 
-        Assert.assertTrue(LoginPageElement.login(driver).isDisplayed());
-        Assert.assertTrue(LoginPageElement.login(driver).isEnabled());
-        Assert.assertEquals(LoginPageElement.login(driver).getText(),"LOGIN");
+        Assert.assertTrue(LoginPageElement.login().isDisplayed());
+        Assert.assertTrue(LoginPageElement.login().isEnabled());
+        Assert.assertEquals(LoginPageElement.login().getText(),"LOGIN");
 
-        Assert.assertTrue(LoginPageElement.forgotPassword(driver).isDisplayed());
-        Assert.assertTrue(LoginPageElement.forgotPassword(driver).isEnabled());
-        Assert.assertEquals(LoginPageElement.forgotPassword(driver).getText(),"Forgot Password?");
+        Assert.assertTrue(LoginPageElement.forgotPassword().isDisplayed());
+        Assert.assertTrue(LoginPageElement.forgotPassword().isEnabled());
+        Assert.assertEquals(LoginPageElement.forgotPassword().getText(),"Forgot Password?");
     }
 
     //Test Case 02 - Validate the valid login
@@ -60,16 +64,16 @@ public class Project2_LoginPage extends Base {
     public void validateTheValidLogin(){
 
 //page object model
-        LoginPageElement.usernameInputBox(driver).sendKeys("TechGlobal");
-        LoginPageElement.passwordInputBox(driver).sendKeys("Test1234");
+        LoginPageElement.usernameInputBox().sendKeys("TechGlobal");
+        LoginPageElement.passwordInputBox().sendKeys("Test1234");
 
-        LoginPageElement.login(driver).click();
+        LoginPageElement.login().click();
 
 
-        Assert.assertTrue(LoginPageElement.loggedIn(driver).isDisplayed());
-        Assert.assertTrue(LoginPageElement.logout(driver).isDisplayed());
-        Assert.assertEquals(LoginPageElement.loggedIn(driver).getText(),"You are logged in");
-        Assert.assertEquals(LoginPageElement.logout(driver).getText(),"LOGOUT");
+        Assert.assertTrue(LoginPageElement.loggedIn().isDisplayed());
+        Assert.assertTrue(LoginPageElement.logout().isDisplayed());
+        Assert.assertEquals(LoginPageElement.loggedIn().getText(),"You are logged in");
+        Assert.assertEquals(LoginPageElement.logout().getText(),"LOGOUT");
     }
 
     //Test Case 03 - Validate the logout
@@ -81,14 +85,14 @@ public class Project2_LoginPage extends Base {
     //Validate that the login form is displayed
     @Test(priority = 3)
     public void validateLogout(){
-        LoginPageElement.usernameInputBox(driver).sendKeys("TechGlobal");
+        LoginPageElement.usernameInputBox().sendKeys("TechGlobal");
 
-        LoginPageElement.passwordInputBox(driver).sendKeys("Test1234");
+        LoginPageElement.passwordInputBox().sendKeys("Test1234");
 
-        LoginPageElement.login(driver).click();
-        LoginPageElement.logout(driver).click();
+        LoginPageElement.login().click();
+        LoginPageElement.logout().click();
 
-        Assert.assertTrue(LoginPageElement.loginForm(driver).isDisplayed());
+        Assert.assertTrue(LoginPageElement.loginForm().isDisplayed());
     }
     //Test Case 04 - Validate the Forgot Password? Link and Reset Password modal
     //Navigate to https://techglobal-training.com/frontend/project-2
@@ -103,19 +107,20 @@ public class Project2_LoginPage extends Base {
 
       @Test(priority = 4)
     public void validateForgotPassword(){
-        LoginPageElement.forgotPassword(driver).click();
+        LoginPageElement.forgotPassword().click();
 
-        Assert.assertTrue(LoginPageElement.reset(driver).isDisplayed());
-        Assert.assertTrue(LoginPageElement.close(driver).isDisplayed());
+        Assert.assertTrue(LoginPageElement.reset().isDisplayed());
+        Assert.assertTrue(LoginPageElement.close().isDisplayed());
 
-        Assert.assertTrue(LoginPageElement.email(driver).isDisplayed());
+        Assert.assertTrue(LoginPageElement.email().isDisplayed());
 
-        Assert.assertEquals(LoginPageElement.emailLabel(driver).getText(),"Enter your email address and we'll send you a link to reset your password.");
+        Assert.assertEquals(LoginPageElement.emailLabel().getText(),"Enter your email address and we'll send you a link to reset your password.");
 
-         Assert.assertTrue(LoginPageElement.submit(driver).isDisplayed());
-         Assert.assertTrue(LoginPageElement.submit(driver).isEnabled());
-         Assert.assertEquals(LoginPageElement.submit(driver).getText(),"SUBMIT");
+         Assert.assertTrue(LoginPageElement.submit().isDisplayed());
+         Assert.assertTrue(LoginPageElement.submit().isEnabled());
+         Assert.assertEquals(LoginPageElement.submit().getText(),"SUBMIT");
         }
+
         //Test Case 05 - Validate the Reset Password modal close button
         //Navigate to https://techglobal-training.com/frontend/project-2
         //Click on the “Forgot Password?” link
@@ -125,16 +130,23 @@ public class Project2_LoginPage extends Base {
 
     @Test(priority = 5)
     public void validateCloseButton(){
-        LoginPageElement.forgotPassword(driver).click();
 
+            LoginPageElement.forgotPassword().click();
+            Assert.assertTrue(LoginPageElement.resetModal().isDisplayed());
+            LoginPageElement.close().click();
 
-        Assert.assertTrue(LoginPageElement.resetModal(driver).isDisplayed());
-
-        LoginPageElement.close(driver).click();
-
-        Assert.assertTrue(LoginPageElement.loginForm(driver).isDisplayed());
+        Assert.assertFalse(isModalDisplayed());
 
     }
+    public boolean isModalDisplayed() {
+        try {
+            return Driver.getDriver().findElement(By.cssSelector(".modal")).isDisplayed();
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+    }
+
+
     //Test Case 06 - Validate the Reset Password form submission
     //Navigate to https://techglobal-training.com/frontend/project-2
     //Click on the “Forgot Password?” link
@@ -144,12 +156,12 @@ public class Project2_LoginPage extends Base {
 
     @Test(priority = 6)
     public void validateResetPasswordFormSubmission(){
-        LoginPageElement.forgotPassword(driver).click();
+        LoginPageElement.forgotPassword().click();
 
-        LoginPageElement.email(driver).sendKeys("a@a.a");
-        LoginPageElement.submit(driver).click();
+        LoginPageElement.email().sendKeys("a@a.a");
+        LoginPageElement.submit().click();
 
-        Assert.assertEquals(LoginPageElement.confirmationMessage(driver).getText(), "A link to reset your password has been sent to your email address.");
+        Assert.assertEquals(LoginPageElement.confirmationMessage().getText(), "A link to reset your password has been sent to your email address.");
     }
     //Test Case 07 - Validate the invalid login with the empty credentials
     //Navigate to https://techglobal-training.com/frontend/project-2
@@ -160,8 +172,8 @@ public class Project2_LoginPage extends Base {
 
     @Test(priority = 7)
     public  void validateInvalidLogin(){
-        LoginPageElement.login(driver).click();
-        Assert.assertEquals(LoginPageElement.error(driver).getText(),"Invalid Username entered!");
+        LoginPageElement.login().click();
+        Assert.assertEquals(LoginPageElement.error().getText(),"Invalid Username entered!");
     }
 
     //Test Case 08 - Validate the invalid login with the wrong username
@@ -173,10 +185,10 @@ public class Project2_LoginPage extends Base {
 
     @Test(priority = 8)
     public void validateLoginWithWrongUsername(){
-        LoginPageElement.usernameInputBox(driver).sendKeys("John");
-        LoginPageElement.passwordInputBox(driver).sendKeys("Test1234");
-        LoginPageElement.login(driver).click();
-        Assert.assertEquals(LoginPageElement.error(driver).getText(),"Invalid Username entered!");
+        LoginPageElement.usernameInputBox().sendKeys("John");
+        LoginPageElement.passwordInputBox().sendKeys("Test1234");
+        LoginPageElement.login().click();
+        Assert.assertEquals(LoginPageElement.error().getText(),"Invalid Username entered!");
     }
 
     //Test Case 09 - Validate the invalid login with the wrong password
@@ -188,12 +200,12 @@ public class Project2_LoginPage extends Base {
 
     @Test(priority = 9)
     public void validateInvalidPassword(){
-        LoginPageElement.usernameInputBox(driver).sendKeys("TechGlobal");
-        LoginPageElement.passwordInputBox(driver).sendKeys("1234");
+        LoginPageElement.usernameInputBox().sendKeys("TechGlobal");
+        LoginPageElement.passwordInputBox().sendKeys("1234");
 
-         LoginPageElement.login(driver).click();
+         LoginPageElement.login().click();
 
-        Assert.assertEquals(LoginPageElement.error(driver).getText(),"Invalid Password entered!");
+        Assert.assertEquals(LoginPageElement.error().getText(),"Invalid Password entered!");
 
     }
 
@@ -206,12 +218,12 @@ public class Project2_LoginPage extends Base {
 
     @Test(priority = 10)
     public void validateInvalidInput(){
-        LoginPageElement.usernameInputBox(driver).sendKeys("John");
+        LoginPageElement.usernameInputBox().sendKeys("John");
 
-        LoginPageElement.usernameInputBox(driver).sendKeys("TechGlobal");
+        LoginPageElement.usernameInputBox().sendKeys("TechGlobal");
 
-        LoginPageElement.login(driver).click();
-        Assert.assertEquals(LoginPageElement.error(driver).getText(),"Invalid Username entered!");
+        LoginPageElement.login().click();
+        Assert.assertEquals(LoginPageElement.error().getText(),"Invalid Username entered!");
 
 
     }

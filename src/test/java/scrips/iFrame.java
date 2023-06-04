@@ -44,7 +44,7 @@ public class iFrame extends Base {
 
         WebElement submit = driver.findElement(By.id("submit"));
 
-        submit.click();
+        submit.submit();
 
         driver.switchTo().parentFrame();
 
