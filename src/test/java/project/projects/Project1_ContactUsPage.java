@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import scrips.Base;
+import scripts.Base;
 import utils.Waiter;
 
 import java.util.List;

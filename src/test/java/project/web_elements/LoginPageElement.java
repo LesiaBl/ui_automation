@@ -46,7 +46,7 @@ public class LoginPageElement {
         return Driver.getDriver().findElement(By.id("modal_title"));
     }
     public static WebElement close(){
-        return Driver.getDriver().findElement(By.cssSelector(".delete"));
+        return Driver.getDriver().findElement(By.className("delete"));
     }
     public static WebElement email(){
         return Driver.getDriver().findElement(By.id("email"));

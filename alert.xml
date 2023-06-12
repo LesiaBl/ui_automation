@@ -3,7 +3,7 @@
 <suite name="Alert Suite">
     <test name="Testing the Alerts of Application">
         <classes>
-            <class name="scrips.AlertTest"/>
+            <class name="scripts._12_TGAlertsTest"/>
         </classes>
     </test>
 </suite>

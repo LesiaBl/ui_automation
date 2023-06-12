@@ -2,7 +2,7 @@ package practice;
 
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import scrips.Base;
+import scripts.Base;
 
 public class UltimateQa extends Base {
     @BeforeMethod

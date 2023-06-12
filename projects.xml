@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite">
+    <test verbose="2" preserve-order="true"
+          name="/Users/lesiabiletska/IdeaProjects/ui_automation/src/test/java/project/projects">
+        <classes>
+            <class name="project.projects.Project1_ContactUsPage">
+                <methods>
+                    <include name="validateTheContactInformationList"/>
+                    <include name="validateFullNameInputBox"/>
+                    <include name="validateTheGenderRadioButton"/>
+                    <include name="validateTheAddressInputBox"/>
+                    <include name="validateEmailInputBox"/>
+                    <include name="validatePhoneInputBox"/>
+                    <include name="validateTheMessageTextArea"/>
+                    <include name="validateTheConsentCheckbox"/>
+                    <include name="validateTheSubmitButton"/>
+                    <include name="validateTheFormSubmission"/>
+                </methods>
+            </class>
+            <class name="project.projects.Project2_LoginPage">
+                <methods>
+                    <include name="validateTheLoginForm"/>
+                    <include name="validateTheValidLogin"/>
+                    <include name="validateLogout"/>
+                    <include name="validateForgotPassword"/>
+                    <include name="validateCloseButton"/>
+                    <include name="validateResetPasswordFormSubmission"/>
+                    <include name="validateInvalidLogin"/>
+                    <include name="validateLoginWithWrongUsername"/>
+                    <include name="validateInvalidPassword"/>
+                    <include name="validateInvalidInput"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
